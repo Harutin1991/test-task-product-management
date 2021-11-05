@@ -30,6 +30,7 @@ Route::post('register', [\App\Http\Controllers\Admin\AuthController::class, 'reg
     Route::prefix('product')->group(function(){
         Route::get('/', [\App\Http\Controllers\Admin\ProductController::class, 'paginated']);
         Route::get('/category-tree', [\App\Http\Controllers\Admin\ProductController::class, 'categoryTree']);
+        Route::get('/count', [\App\Http\Controllers\Admin\ProductController::class, 'totalCount']);
         Route::delete('/{id}', [\App\Http\Controllers\Admin\ProductController::class, 'delete']);
         Route::post('/', [\App\Http\Controllers\Admin\ProductController::class, 'create']);
         Route::get('/{id}', [\App\Http\Controllers\Admin\ProductController::class, 'getSingle']);

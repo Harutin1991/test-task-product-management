@@ -91,19 +91,26 @@ abstract class BaseService
         return $query->paginate();
     }
 
+    public function getAll()
+    {
+        return $this->model->all();
+    }
+
+    public function getTotalsCount()
+    {
+        return $this->model->count();
+    }
+
     /**
      * @param $data
      * @return mixed
      */
     public function create($data)
     {
-        dd($this->validator->setData($data));
         $this->validator
             ->setData($data)
             ->validate('create');
-dd($this->validator
-    ->setData($data)
-    ->validate('create'));
+
         return $this->model->create($data);
     }
 

@@ -13,13 +13,11 @@ class AuthValidator extends BaseAdminValidator
      */
     public function validateCreate(): array
     {
-        $rules = [
+        return [
             'name' => 'required|string',
             'email' => 'required|email|unique:users',
             'password' => 'required|confirmed|min:6',
         ];
-
-        return $this->addRuleFields($rules);
     }
 
 

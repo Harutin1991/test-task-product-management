@@ -48,6 +48,11 @@ class ProductService extends BaseAdminService
         return parent::paginated(['with' => 'category']);
     }
 
+    public function getProductsTotal()
+    {
+        return parent::getTotalsCount();
+    }
+
     /**
      * @param $id
      * @param null $relations

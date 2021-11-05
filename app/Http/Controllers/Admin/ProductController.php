@@ -33,6 +33,15 @@ class ProductController extends BaseAdminController
     }
 
     /**
+     * @return array
+     */
+    public function totalCount() : array
+    {
+        $productsCount = $this->baseService->getProductsTotal();
+        return $this->makeResponse($productsCount);
+    }
+
+    /**
      * @return mixed
      */
     public function categoryTree()
