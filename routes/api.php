@@ -16,10 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::post('login', [\App\Http\Controllers\Admin\AuthController::class, 'login']);
+
+Route::post('login', [\App\Http\Controllers\Admin\AuthController::class, 'login'])->name('login');
 Route::post('register', [\App\Http\Controllers\Admin\AuthController::class, 'register']);
 
-//Route::group(['middleware' => 'auth.api'], function() {
+Route::group(['middleware' => 'auth:api'], function() {
     Route::prefix('category')->group(function(){
         Route::get('/', [\App\Http\Controllers\Admin\CategoryController::class, 'paginated']);
         Route::delete('/{id}', [\App\Http\Controllers\Admin\CategoryController::class, 'delete']);
@@ -39,5 +40,4 @@ Route::post('register', [\App\Http\Controllers\Admin\AuthController::class, 'reg
 
     Route::get('logout', [\App\Http\Controllers\Admin\AuthController::class, 'logout']);
 
-
-//});
+});
