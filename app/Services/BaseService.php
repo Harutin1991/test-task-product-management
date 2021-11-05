@@ -9,6 +9,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Validator;
 use Intervention\Image\Facades\Image;
 use phpDocumentor\Reflection\Types\This;
 
@@ -107,11 +108,25 @@ abstract class BaseService
      */
     public function create($data)
     {
-        $this->validator
-            ->setData($data)
-            ->validate('create');
+        $error = false;
+        $success = true;
+        $response = [];
+        try {
+            $this->validator
+                ->setData($data)
+                ->validate('create');
+            $response = $this->model->create($data);
+        } catch (\Exception $e) {
+            if(isset($e->validator)) {
+                $error = $e->validator->errors()->messages();
+            } else {
+                $error = $e->getMessage();
+            }
 
-        return $this->model->create($data);
+            $success = false;
+        }
+
+        return ['error' => $error, 'data' => $response, 'success' => $success];
     }
 
     /**
@@ -121,15 +136,25 @@ abstract class BaseService
      */
     public function update($id, $data)
     {
-        $this->validator
-            ->setData($data)
-            ->validate('update');
+        $error = false;
+        $success = true;
+        $response = [];
+        try {
+            $this->validator
+                ->setData($data)
+                ->validate('update');
 
-        $item = $this->model->find($id);
-        if (!$item) {
-            return false;
+            $item = $this->model->find($id);
+            if (!$item) {
+                return ['error' => 'No Item found', 'data' => [], 'success' => false];;
+            }
+            $response = $this->model->find($id)->update($data);
+        } catch (\Exception $e) {
+            $error = $e->validator->errors()->messages();
+            $success = false;
         }
-        return $this->model->find($id)->update($data);
+
+        return ['error' => $error, 'data' => $response, 'success' => $success];
     }
 
     /**

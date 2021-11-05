@@ -70,14 +70,15 @@ class BaseController extends CoreController
 
     /**
      * @param $data
+     * @param string $message
      * @return array
      */
-    public function makeResponse($data)
+    public function makeResponse($data, $message = ''): array
     {
         return [
-            'success' => 1,
-            'data' => $data
+            'success' => $data['success'] ?? (bool)$data,
+            'data' => $data['data'] ?? $data ,
+            'error' => $data['error'] ?? $message
         ];
     }
-
 }

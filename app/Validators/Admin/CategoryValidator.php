@@ -2,7 +2,6 @@
 
 namespace App\Validators\Admin;
 
-use Illuminate\Validation\Rule;
 
 /**
  * Class BlockCategoryValidator

@@ -54,10 +54,6 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
-    'host' => env('APP_HOST'),
-
-    'ml_app_url' => env('ML_API_URL'),
-
     'asset_url' => env('ASSET_URL', null),
 
     /*
@@ -166,7 +162,6 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
-        \App\Providers\ShopifyServiceProvider::class,
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
         \App\Providers\RepositoryServiceProvider::class,
 

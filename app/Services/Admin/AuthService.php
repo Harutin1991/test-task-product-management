@@ -59,7 +59,7 @@ class AuthService extends BaseAdminService
         }
 
         if (!Hash::check($data['password'], $user->password)) {
-           $this->incorrectData();
+            $this->incorrectData();
         }
 
         Auth::login($user);
@@ -74,17 +74,26 @@ class AuthService extends BaseAdminService
      */
     public function register(array $userData)
     {
-        $registerData = [
-            'name' => $userData['name'],
-            'email' => $userData['email'],
-            'email_verified_at' => Carbon::now(),
-            'password' => Hash::make($userData['password'])
-        ];
+        $error = '';
+        $data = [];
+        $success = true;
+        try {
+            $registerData = [
+                'name' => $userData['name'],
+                'email' => $userData['email'],
+                'email_verified_at' => Carbon::now(),
+                'password' => Hash::make($userData['password'])
+            ];
+            $this->validator
+                ->setData($registerData)
+                ->validate('create');
+            $data = $this->model->create($registerData);
+        } catch (\Throwable $e) {
+            $error = $e->validator->errors()->messages();
+            $success = false;
+        }
 
-        $this->validator
-            ->setData($userData)
-            ->validate('create');
-       return $this->model->create($userData);
+        return ['error' => $error, 'success' => $success, 'data' => $data];
     }
 
     /**

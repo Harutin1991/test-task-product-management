@@ -13,7 +13,6 @@ use Illuminate\Http\Request;
  */
 class ProductController extends BaseAdminController
 {
-
     /**
      * ProductController constructor.
      * @param ProductService $productService

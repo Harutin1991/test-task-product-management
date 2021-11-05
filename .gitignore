@@ -11,6 +11,7 @@
 /.idea
  /public/images
 .env.backup
+.env
 .phpunit.result.cache
 docker-compose.override.yml
 .phpstorm.meta.php
