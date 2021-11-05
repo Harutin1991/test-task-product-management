@@ -31,7 +31,8 @@ class ProductValidator extends BaseAdminValidator
     public function validateBase(): array
     {
         return [
-            'category_id' => 'required|int',
+            'category_id' => 'required|int|exists:categories,id',
+            'email' => 'required|email|unique:users',
             'name' => 'required',
             'sku' => 'required',
             'price' => 'required',

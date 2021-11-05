@@ -163,12 +163,23 @@ abstract class BaseService
      */
     public function delete($id)
     {
-        $item = $this->model->find($id);
-        if ($item) {
-            $item->delete();
+        $error = false;
+        $success = true;
+        $response = [];
+        try {
+            $item = $this->model->find($id);
+
+            if (!$item) {
+                return ['error' => 'No Item found', 'data' => [], 'success' => false];;
+            }
+            $response = $item->delete();
+        } catch (\Exception $e) {
+            $error = $e->validator->errors()->messages();
+            $success = false;
         }
 
-        return true;
+        return ['error' => $error, 'data' => $response, 'success' => $success];
+
     }
 
     /**
