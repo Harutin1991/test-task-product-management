@@ -2,11 +2,13 @@
 
 namespace App\Validators\Admin;
 
+use App\Validators\BaseValidator;
+
 /**
  * Class AuthValidator
  * @package App\Validators\Admin
  */
-class AuthValidator extends BaseAdminValidator
+class AuthValidator extends BaseValidator
 {
     /**
      * @return array

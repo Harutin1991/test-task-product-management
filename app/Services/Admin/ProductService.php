@@ -7,12 +7,13 @@ namespace App\Services\Admin;
 use App\Models\Product;
 use App\Models\Category;
 use App\Validators\Admin\ProductValidator;
+use App\Services\BaseService;
 
 /**
  * Class ProductService
  * @package App\Services\Admin
  */
-class ProductService extends BaseAdminService
+class ProductService extends BaseService
 {
     /**
      * @return string
@@ -45,11 +46,6 @@ class ProductService extends BaseAdminService
     public function paginated($params = []): object
     {
         return parent::paginated(['with' => 'category']);
-    }
-
-    public function getProductsTotal()
-    {
-        return parent::getTotalsCount();
     }
 
     /**

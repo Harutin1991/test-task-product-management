@@ -10,12 +10,13 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Carbon\Carbon;
+use App\Services\BaseService;
 
 /**
  * Class AuthService
  * @package App\Services\Admin
  */
-class AuthService extends BaseAdminService
+class AuthService extends BaseService
 {
     /**
      * AuthService constructor.

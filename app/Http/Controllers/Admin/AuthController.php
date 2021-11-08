@@ -6,12 +6,13 @@ use App\Services\Admin\AuthService;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\BaseController;
 
 /**
  * Class AuthController
  * @package App\Http\Controllers\Admin
  */
-class AuthController extends BaseAdminController
+class AuthController extends BaseController
 {
 
     use AuthenticatesUsers;

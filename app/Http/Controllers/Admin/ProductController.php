@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Services\Admin\ProductService;
-use Illuminate\Http\Request;
+use App\Http\Controllers\BaseController;
 
 /**
  * Class ProductController
  * @package App\Http\Controllers\Admin
  */
-class ProductController extends BaseAdminController
+class ProductController extends BaseController
 {
     /**
      * ProductController constructor.
@@ -23,20 +23,11 @@ class ProductController extends BaseAdminController
     }
 
     /**
-     * @param Request $request
-     * @return array
-     */
-    public function paginated(Request $request) : array
-    {
-        return parent::paginated($request);
-    }
-
-    /**
      * @return array
      */
     public function totalCount() : array
     {
-        $productsCount = $this->baseService->getProductsTotal();
+        $productsCount = $this->baseService->getTotalsCount();
         return $this->makeResponse($productsCount);
     }
 

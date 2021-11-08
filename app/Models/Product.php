@@ -4,8 +4,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Model;
 
-class Product extends BaseModel
+class Product extends Model
 {
     protected $fillable = [
         'category_id',

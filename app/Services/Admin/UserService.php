@@ -4,8 +4,9 @@ namespace App\Services\Admin;
 
 use App\Models\User;
 use App\Validators\Admin\UserValidator;
+use App\Services\BaseService;
 
-class UserService extends BaseAdminService
+class UserService extends BaseService
 {
 
     /**

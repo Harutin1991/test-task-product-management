@@ -2,11 +2,13 @@
 
 namespace App\Validators\Admin;
 
+use App\Validators\BaseValidator;
+
 /**
  * Class ProductValidator
  * @package App\Validators\Admin
  */
-class ProductValidator extends BaseAdminValidator
+class ProductValidator extends BaseValidator
 {
 
     /**
@@ -32,7 +34,6 @@ class ProductValidator extends BaseAdminValidator
     {
         return [
             'category_id' => 'required|int|exists:categories,id',
-            'email' => 'required|email|unique:users',
             'name' => 'required',
             'sku' => 'required',
             'price' => 'required',

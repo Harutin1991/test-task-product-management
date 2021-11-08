@@ -2,12 +2,13 @@
 
 namespace App\Validators\Admin;
 
+use App\Validators\BaseValidator;
 
 /**
  * Class BlockCategoryValidator
  * @package App\Validators\Admin
  */
-class CategoryValidator extends BaseAdminValidator
+class CategoryValidator extends BaseValidator
 {
 
     /**

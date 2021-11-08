@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Services\Admin\CategoryService;
+use App\Http\Controllers\BaseController;
 
 /**
  * Class CategoryController
  * @package App\Http\Controllers\Admin
  */
-class CategoryController extends BaseAdminController
+class CategoryController extends BaseController
 {
 
     /**

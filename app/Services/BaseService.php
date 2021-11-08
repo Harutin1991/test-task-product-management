@@ -2,16 +2,10 @@
 
 namespace App\Services;
 
-use App\Validators\BaseValidator;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Validator;
-use Intervention\Image\Facades\Image;
-use phpDocumentor\Reflection\Types\This;
+use Illuminate\Validation\ValidationException;
 
 /**
  * Class BaseService
@@ -116,13 +110,8 @@ abstract class BaseService
                 ->setData($data)
                 ->validate('create');
             $response = $this->model->create($data);
-        } catch (\Exception $e) {
-            if(isset($e->validator)) {
-                $error = $e->validator->errors()->messages();
-            } else {
-                $error = $e->getMessage();
-            }
-
+        } catch (ValidationException $e) {
+            $error = $e->errors();
             $success = false;
         }
 
@@ -144,13 +133,13 @@ abstract class BaseService
                 ->setData($data)
                 ->validate('update');
 
-            $item = $this->model->find($id);
-            if (!$item) {
-                return ['error' => 'No Item found', 'data' => [], 'success' => false];;
+            $model = $this->model->find($id);
+            if (!$model) {
+                return ['error' => 'No Item found', 'data' => [], 'success' => false];
             }
-            $response = $this->model->find($id)->update($data);
-        } catch (\Exception $e) {
-            $error = $e->validator->errors()->messages();
+            $response = $model->update($data);
+        } catch (\ValidationException $e) {
+            $error = $e->errors();
             $success = false;
         }
 
@@ -170,11 +159,11 @@ abstract class BaseService
             $item = $this->model->find($id);
 
             if (!$item) {
-                return ['error' => 'No Item found', 'data' => [], 'success' => false];;
+                return ['error' => 'No Item found', 'data' => [], 'success' => false];
             }
             $response = $item->delete();
-        } catch (\Exception $e) {
-            $error = $e->validator->errors()->messages();
+        } catch (\ValidationException $e) {
+            $error = $e->errors();
             $success = false;
         }
 
@@ -189,7 +178,8 @@ abstract class BaseService
      */
     public function getSingle($id, $relations = null): object
     {
-        return ($relations) ? $this->model->with($relations)->where('id', $id)->get() : $this->model->find($id);
+        $model = $this->model;
+        return ($relations) ? $model->with($relations)->where('id', $id)->get() : $model->find($id);
     }
 
 }
